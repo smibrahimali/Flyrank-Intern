@@ -3,36 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed Muhammad Ibrahim Ali | Portfolio</title>
+    <title>Syed Muhammad Ibrahim Ali | Machine Learning & Data Science Portfolio</title>
+    <!-- Google Fonts for Inter and JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #FAFAFA;
+            --text-color: #1A1A1A;
+            --muted-color: #4A5568;
+            --border-color: #E2E8F0;
+            --card-bg: #FFFFFF;
+        }
+
         body {
-            background-color: #FAFAFA;
-            color: #1A1A1A;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Inter', -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            line-height: 1.6;
             margin: 0;
+            padding: 0;
         }
-        .container {
-            text-align: center;
+
+        header {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
-        h1 {
+
+        .monogram {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 500;
+            letter-spacing: -0.05em;
+            margin-bottom: 2rem;
+            color: var(--text-color);
         }
-        p {
-            color: #4A5568;
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 600;
+            line-height: 1.25;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .case-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .case-card:hover {
+            border-color: var(--muted-color);
+        }
+
+        .case-card h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .case-card p {
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            background: transparent;
+            border: 1px solid var(--text-color);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            header, main, footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>[ S.M.I.A. ]</h1>
-        <p>Portfolio build in progress.</p>
-    </div>
+
+    <header>
+        <div class="monogram">[ S.M.I.A. ]</div>
+        <h1>I build rigorous, leak-free machine learning models and backend systems that turn raw data into production-ready signals.</h1>
+        <p class="subtitle">Syed Muhammad Ibrahim Ali · CS/DS Student at Dawood University</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Featured Systems &amp; Cases</h2>
+            
+            <div class="case-card">
+                <h3>Customer Churn Prediction (Machine Learning)</h3>
+                <p>Preventing temporal data leakage by structuring isolation splits before model training, evaluated strictly on Precision@K metrics.</p>
+                <a href="https://github.com/smibrahimali/Flyrank-Intern/tree/main/work/notebooks" class="btn" target="_blank">View ML Pipeline &rarr;</a>
+            </div>
+
+            <div class="case-card">
+                <h3>Padel Match &amp; ELO Analytics Engine (Backend Architecture)</h3>
+                <p>Designing robust document schemas in MongoDB and concurrent match-state validation rules using Java and Spring Boot.</p>
+                <a href="https://github.com/smibrahimali/Flyrank-Intern" class="btn" target="_blank">View Backend Repo &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>© 2026 Syed Muhammad Ibrahim Ali</div>
+        <div><a href="mailto:ialiibra2@gmail.com">Email me for a technical interview</a></div>
+    </footer>
+
 </body>
 </html>
