@@ -57,6 +57,29 @@
             margin-bottom: 1.5rem;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .nav-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: border-color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            border-color: var(--text-color);
+        }
+
         main {
             max-width: 800px;
             margin: 0 auto;
@@ -162,6 +185,13 @@
         <div class="monogram">[ S.M.I.A. ]</div>
         <h1>I build rigorous, leak-free machine learning models and backend systems that turn raw data into production-ready signals.</h1>
         <p class="subtitle">Syed Muhammad Ibrahim Ali · CS/DS Student at Dawood University</p>
+        
+        <div class="nav-links">
+            <a href="https://github.com/smibrahimali" class="nav-link" target="_blank">GitHub &nearr;</a>
+            <a href="https://linkedin.com/in/syed-muhammad-ibrahim-ali" class="nav-link" target="_blank">LinkedIn &nearr;</a>
+            <a href="mailto:ialiibra2@gmail.com" class="nav-link">CV / Resume &nearr;</a>
+            <a href="mailto:ialiibra2@gmail.com" class="nav-link">Book Interview &nearr;</a>
+        </div>
     </header>
 
     <main>
