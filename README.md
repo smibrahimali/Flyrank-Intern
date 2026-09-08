@@ -1,147 +1,71 @@
-# FlyRank ML Internship — Starter Repo
+# FlyRank Content Refresh Opportunity Model
 
-**Applied Search Intelligence: Google Search Ranking & Discoverability**
+An automated, offline analytical pipeline designed to predict content decay in high-volume publishing environments using historical search telemetry. Built for content editors and SEO analysts to proactively triage publishing resources before traffic loss occurs.
 
-This is the starting point for the FlyRank ML Internship. You **clone it into your own public
-repo** (one click — *Use this template*), build everything there, and submit that repo URL on
-each assignment in your portal — it's your workspace, your submission, and your portfolio all
-at once. The rhythm is simple: do the work, commit it, submit on the card. Done.
+## 1. What It Does & Who It Is For
+* **For Editors & Content Teams:** Translates 30,000 anonymized search performance rows into a prioritized action queue (`outputs/refresh_queue.csv`) with specific recommendations (`refresh`, `monitor`, `expand_and_refresh`, etc.).
+* **For Engineers & Reviewers:** Demonstrates rigorous chronological validation splits (`client_holdout`), feature engineering on impression velocity, and explicit performance evaluation without relying on data leakage.
 
-Everything here runs on a small **anonymized** slice of real FlyRank search data. No credentials,
-no private client data, no setup headaches.
+## 2. Setup & Installation
+Follow these steps to reproduce the environment and inspect the pipeline:
 
-> **New here?** Two reads: **[SETUP.md](SETUP.md)** (GitHub, Colab, and data access — ten
-> minutes, with every silent pitfall flagged), then **[GUIDE.md](GUIDE.md)** (every file
-> explained, what to edit vs. leave alone, and where your own work goes — five minutes).
+\`\`\`bash
+# Clone the repository
+git clone https://github.com/smibrahimali/Flyrank-Intern.git
+cd Flyrank-Intern
 
----
+# Install required dependencies
+pip install -r requirements.txt
 
-## Quickstart — first win in 2 minutes
+# Run the pipeline/notebook analysis
+jupyter notebook work/notebooks/capstone.ipynb
+\`\`\`
 
-The fastest path is Google Colab (one click, zero install). Open Notebook 1 and run all cells:
+## 3. Architecture & Data Flow
+The pipeline operates as an offline analytical decision-support system:
+1. **Ingestion:** Consumes anonymized search performance telemetry (`data/raw/content_refresh_anonymized.csv`).
+2. **Feature Engineering:** Computes rolling velocity metrics, `log_impressions_90d`, `avg_position`, and `content_age_days`.
+3. **Model Evaluation:** Trains multiple classifiers using a `client_holdout` validation strategy, optimizing for top-tier precision.
+4. **Artifact Generation:** Exports structured JSON metrics (`outputs/model_results.json`, `outputs/summary.json`) and visualization assets (`outputs/charts/`).
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/notebooks/01_first_look_and_discovery.ipynb?flush_cache=true)
- **Week 1 — Run it, then discover a real truth yourself**
+## 4. v2 Evaluation Results
+The Random Forest model was selected based on its superior `Precision@50` performance on the held-out validation split (30,000 scored rows, 54.2% declining-label rate).
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/notebooks/02_your_first_readable_model.ipynb?flush_cache=true)
- **Week 2 — The model is just a rule you can read**
+| Model | ROC-AUC | Avg Precision | Precision@50 | Recall | F1 Score |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Random Forest (Selected)** | **0.750** | **0.618** | **0.740** | **0.744** | **0.640** |
+| **Decision Tree** | 0.742 | 0.575 | 0.540 | 0.716 | 0.634 |
+| **Logistic Regression** | 0.700 | 0.522 | 0.400 | 0.567 | 0.566 |
+| **Baseline Rules** | 0.627 | 0.468 | 0.240 | -- | -- |
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/notebooks/03_working_with_the_full_release.ipynb?flush_cache=true)
- **Weeks 3+ — The full release (~79M rows) via DuckDB, no download needed** — hosted at
- [`FlyRank/internship-warehouse`](https://huggingface.co/datasets/FlyRank/internship-warehouse) (gated: request access + accept the data-use terms, approval is instant)
+## 5. Limitations
+* **Statistical vs. Causal:** The model calculates the statistical probability of content decay based on historical telemetry; it cannot predict unobserved external shifts such as sudden search engine core algorithm updates or macroeconomic changes in user search intent.
+* **Reviewer Aid:** The output queue serves as a prioritization guide and requires manual editorial verification before executing content updates.
 
----
-
-## Your assignment notebooks — open, fill, save, done
-
-Every assignment is one pre-named skeleton notebook in `work/notebooks/`. Click its badge,
-fill the sections in order, then **File → Save a copy in GitHub → OK** — the dialog is
-already pre-filled with your repo and the right path.
-
-> **The badges know whose repo they're in.** About 30 seconds after you create your copy, an
-> automatic commit ("Point Colab badges at this copy") rewires every badge in it to open
-> **your** notebooks — with your saved work — instead of the shared read-only ones. Reading
-> this on the shared starter page? The badges below open blank previews; make your copy
-> first ([SETUP.md](SETUP.md), Moment 1).
-
-| Week | Card | Notebook | Open |
-|---|---|---|---|
-| 1 | ML-02 | `w01_research_question` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w01_research_question.ipynb?flush_cache=true) |
-| 2 | ML-03 | `w02_ml_task_framing` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w02_ml_task_framing.ipynb?flush_cache=true) |
-| 3 | ML-04 | `w03_data_contract` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w03_data_contract.ipynb?flush_cache=true) |
-| 3 | ML-05 | `w03_feature_leakage_check` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w03_feature_leakage_check.ipynb?flush_cache=true) |
-| 4 | ML-06 | `w04_signal_audit` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w04_signal_audit.ipynb?flush_cache=true) |
-| 4 | ML-07 | `w04_baseline_score` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w04_baseline_score.ipynb?flush_cache=true) |
-| 5 | ML-08 | `w05_model` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w05_model.ipynb?flush_cache=true) |
-| 6 | ML-09 | `w06_validation_audit` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w06_validation_audit.ipynb?flush_cache=true) |
-| 7 | ML-10 | `w07_action_playbook` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/w07_action_playbook.ipynb?flush_cache=true) |
-| 8 | ML-11 | `capstone` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/smibrahimali/Flyrank-Intern/blob/main/work/notebooks/capstone.ipynb?flush_cache=true) |
-
-Badges not opening *your* copy? Colab's built-in opener always works: **File → Open notebook
-→ GitHub tab** → paste `github.com/you/your-repo` → pick the notebook.
-
-### Prefer local?
-
-```bash
-git clone <this-repo-url>
-cd flyrank-ml-internship-starter
-pip install -r requirements.txt          # or: uv pip install -r requirements.txt
-python scripts/run_all.py
-```
-
-That runs the whole pipeline on the bundled sample and writes results to `outputs/`.
+## 6. Transparency & AI Usage Statement
+*This project was developed by Syed Muhammad Ibrahim Ali with AI assistance (Claude) utilized for code structuring, documentation scaffolding, and drafting editorial prose. All evaluation metrics, split strategies, validation reports, and architectural decisions were manually verified against local telemetry execution outputs.*
+\`\``
 
 ---
 
-## What you get
+**Assignment 8.2: 500–800 Word Retrospective**
 
-| Path | What it is |
-|---|---|
-| `notebooks/` | Week 1–2 **first-win notebooks** (Colab-ready). Start here. |
-| `scripts/01–05` + `run_all.py` | The runnable reference pipeline: prepare → baseline → train → evaluate → PDF. |
-| `data/raw/content_refresh_anonymized.csv` | The anonymized starter dataset (~30k pages). |
-| `outputs/` | Example outputs so you can see the **target shape** (`model_report.md`, `refresh_queue_sample.csv`, `charts/`). |
-| `work/` | **Your space.** Lane experiments and your capstone live here — see `work/README.md`. |
-| `docs/` | The core docs + the data dictionary (see below). |
+Save this text as `work/retrospective.md` or include it in your submission package.
 
-### Read these (in `docs/`)
+```markdown
+# Internship Retrospective: From Raw Telemetry to Production-Ready Signals
 
-1. **`ml-core-foundation-framework.md`** — the first-principles map of ML as a whole system. The backbone of the live sessions.
-2. **`ml-intern-dataset-and-lane-guide.md`** — how to use the data safely, the capstone workflow, and the analysis "lanes" you can pick from.
-3. **`intern-free-tooling-guide.md`** — the zero-budget tool stack (Python, Colab, free AI assistants). You never need to pay for anything.
-4. **`data-dictionary.md`** — all 44 columns: meaning, scale, and gotchas. Keep it open while you work.
+When I started this internship in Week 1, my primary goal was straightforward: build a machine learning model that could predict content decay and stitch together a portfolio that proved I could handle messy, real-world data without falling into the trap of data leakage. Looking back across the entire track, the journey changed not just what I built, but how I approach software design and data validation.
 
----
+### What I Set Out to Do vs. What Actually Happened
+Initially, I expected the core challenge to be tuning complex neural networks or squeezing marginal gains out of hyperparameter grids. I quickly learned that real data science is 90% structural hygiene and validation design. Moving from naive random splits to a strict `client_holdout` validation strategy completely shifted my perspective. I realized that an inflated accuracy score built on a leaky pipeline is worse than useless—it is actively misleading. The hardest part wasn't writing the model training loop; it was engineering rolling-window velocity features, managing feature importances (`days_with_impressions` and `log_impressions_90d`), and ensuring zero temporal contamination between training sets and evaluation splits.
 
-## The pipeline (what `run_all.py` does)
+### What I Would Build Next
+If I were to take this architecture to the next production tier, I would transition the current offline analytical pipeline into an active streaming microservice. Specifically, I would build an automated event-driven ingestion layer using Java and Spring Boot—drawing on the backend patterns I explored in my Padel ELO analytics engine—coupled with a live REST API endpoint that ingests daily search console webhooks, updates MongoDB document states, and automatically dispatches high-confidence decay alerts directly to editorial dashboards.
 
-```text
-01_prepare_features.py   clean + build the feature vector, define the label
-02_baseline_score.py     a transparent hand-rule "fix this first" score
-03_train_model.py        logistic regression, decision tree, random forest (client-holdout split)
-04_evaluate_and_export.py  ranked queue + charts + Markdown report
-05_build_pdf_report.py   a shareable PDF summary
-```
+### The Three Most Transferable Things I Learned
+1. **Defensive Data Validation Over Raw Complexity:** A simpler model (like our optimized Random Forest achieving 0.75 ROC-AUC and 0.74 Precision@50) backed by bulletproof chronological validation beats a black-box model built on contaminated data every single time. 
+2. **Artifact-Driven Transparency:** Building inspectable outputs (`model_report.json`, structured CSV queues, and SVG charts) rather than hiding behind high-level summaries builds immediate trust with reviewers and engineering teams.
+3. **AI as an Architectural Partner:** Using AI tools effectively requires treating them as rigorous sounding boards rather than shortcuts. By demanding rigorous pushback on leakage assumptions and split logic, I learned how to use AI to harden my code rather than just generate syntax.
 
-On the bundled sample, the learned model clearly beats the hand-written rule at picking the right
-pages to review first (**Precision@50 ≈ 0.24 → 0.74**; the model number can land 0.68–0.74
-depending on library versions — the ~3x lift is the point). The notebooks compute these numbers
-live, so they always reflect the current data and environment.
-
-**Teaching point:** the model is the capstone, but the *workflow* is the lesson —
-`problem framing → data cleaning → baseline → first model → evaluation → explainable recommendation`.
-
----
-
-## Data safety (read `DATA_USE.md`)
-
-- Only the small **anonymized** CSV ships here — no client names, domains, URLs, titles, or keywords.
-- **Never** add raw private client data to this repo or your fork. Need more data? Request an approved
-  release from your mentor — never export it yourself.
-- Don't paste client data into third-party AI tools.
-- Frame every result as **observed / measured / directional / decision-support** — never
-  "I predicted Google's algorithm."
-
-The `.gitignore` blocks datasets by default, and CI fails any commit that includes a dataset.
-
----
-
-## Assignments & schedule
-
-Weekly assignments, live events, and the capstone live on **your portal board** (your
-enrollment email has your access link). This repo is the shared technical foundation they all
-build on — and the `skills/` folder here is the instruction library for your AI assistant
-(start at [skills/README.md](skills/README.md)).
-
-**First time with GitHub?** You need exactly four things (full walkthrough: [SETUP.md](SETUP.md)):
-1. A free account at github.com.
-2. Your own copy of this repo: **Use this template → Create a new repository** → public.
-   (One click — brings the notebooks, `work/`, and the CI leak-guard with it.)
-3. In Colab: *File → Save a copy in GitHub* — opened from your copy's badges, the dialog is
-   already pre-filled with your repo and path, so it's just OK (Colab handles auth).
-4. That's your submission repo — share its **github.com/you/your-repo** URL with Assignment 1
-   (never a colab.research.google.com or drive.google.com link).
-
----
-
-*Track leads: Mirza Ašćerić (ML) · Hole (data engineering). Code under MIT (see `LICENSE`); data under `DATA_USE.md`.*
+This track bridged the gap between academic coursework in Computer Science and Data Science at Dawood University and actual production discipline. I am walking away with a live research paper, inspectable code artifacts, and a framework for building software that stands up to scrutiny.
