@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Basic SEO & Findability -->
     <title>Syed Muhammad Ibrahim Ali | Machine Learning & Data Science Portfolio</title>
+    <meta name="description" content="Portfolio of Syed Muhammad Ibrahim Ali, CS/DS student building leak-free machine learning models and backend systems like Padel ELO engines.">
+    <meta name="author" content="Syed Muhammad Ibrahim Ali">
+
+    <!-- Social Share (Open Graph) Meta Tags -->
+    <meta property="og:title" content="Syed Muhammad Ibrahim Ali | ML & Data Science">
+    <meta property="og:description" content="I build rigorous, leak-free machine learning models and backend systems that turn raw data into production-ready signals.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smibrahimali-portfolio.netlify.app">
+    
     <!-- Google Fonts for Inter and JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -252,7 +263,8 @@
 
                     <div style="margin-bottom: 1.2rem;">
                         <label style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-bottom: 0.4rem; color: var(--text-color);">MESSAGE</label>
-                        <textarea name="message" rows="4" required style="width: 100%; padding: 0.7rem; font-family: 'Inter', sans-serif; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-color); box-sizing: border-box;" placeholder="Let's discuss data science roles..."></textarea>
+                        <!-- Added maxlength="2000" below -->
+                        <textarea name="message" rows="4" maxlength="2000" required style="width: 100%; padding: 0.7rem; font-family: 'Inter', sans-serif; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-color); box-sizing: border-box;" placeholder="Let's discuss data science roles..."></textarea>
                     </div>
 
                     <button type="submit" class="btn">Send Message &rarr;</button>
