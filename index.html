@@ -15,6 +15,18 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://smibrahimali-portfolio.netlify.app">
     
+    <!-- Favicon (Zero-cost SVG emoji) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <!-- Google Analytics (Replace G-XXXXXXXXXX with your Measurement ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
     <!-- Google Fonts for Inter and JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,7 +174,7 @@
             color: var(--muted-color);
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
 
         footer a {
@@ -173,6 +185,12 @@
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         /* Mobile Optimization Fixes */
@@ -200,7 +218,6 @@
             }
             footer {
                 flex-direction: column;
-                align-items: flex-start;
                 gap: 1.5rem;
             }
             /* Prevents iOS Safari from auto-zooming on form focus */
@@ -220,7 +237,6 @@
         <div class="nav-links">
             <a href="https://github.com/smibrahimali" class="nav-link" target="_blank">GitHub &nearr;</a>
             <a href="https://linkedin.com/in/syed-muhammad-ibrahim-ali" class="nav-link" target="_blank">LinkedIn &nearr;</a>
-            <!-- Updated Links Below -->
             <a href="mailto:ialiibra2@gmail.com?subject=Requesting CV" class="nav-link">Request CV &nearr;</a>
             <a href="#contact" class="nav-link">Contact / Book &darr;</a>
         </div>
@@ -243,14 +259,12 @@
             </div>
         </section>
 
-        <!-- Added id="contact" below -->
         <section id="contact">
             <h2>Get in Touch</h2>
             <div class="case-card">
                 <p style="margin-top: 0; color: var(--muted-color);">Send a direct message for technical interviews or collaboration opportunities.</p>
                 
                 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <!-- Hidden input for Netlify bot spam prevention -->
                     <input type="hidden" name="form-name" value="contact" />
                     <p style="display: none;">
                         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -263,7 +277,6 @@
 
                     <div style="margin-bottom: 1.2rem;">
                         <label style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-bottom: 0.4rem; color: var(--text-color);">MESSAGE</label>
-                        <!-- Added maxlength="2000" below -->
                         <textarea name="message" rows="4" maxlength="2000" required style="width: 100%; padding: 0.7rem; font-family: 'Inter', sans-serif; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-color); box-sizing: border-box;" placeholder="Let's discuss data science roles..."></textarea>
                     </div>
 
@@ -274,7 +287,13 @@
     </main>
 
     <footer>
-        <div>© 2026 Syed Muhammad Ibrahim Ali</div>
+        <div class="footer-left">
+            <div>© 2026 Syed Muhammad Ibrahim Ali</div>
+            <!-- FlyRank Graduate Badge inserted here -->
+            <a href="YOUR_VERIFICATION_LINK" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/FlyRank-Graduate-1A1A1A?style=for-the-badge&logoColor=white" alt="FlyRank Graduate Badge" style="height: 28px; border-radius: 4px;">
+            </a>
+        </div>
         <div><a href="mailto:ialiibra2@gmail.com">Email me for a technical interview</a></div>
     </footer>
 
